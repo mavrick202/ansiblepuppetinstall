@@ -1,0 +1,18 @@
+---
+  - name: Perform Apt-Update
+    shell: apt-get update
+
+  - name: Add the APT Puppet Repo
+    shell: wget https://apt.puppetlabs.com/puppet6-release-xenial.deb &&  dpkg -i puppet6-release-xenial.deb
+
+  - name: Perform Repo Update
+    shell: apt-get update
+
+  - name: Install puppet Agent
+    shell: apt-get install -y puppet-agent && cp /opt/puppetlabs/puppet/bin/puppet /usr/local/sbin && rm -rf /etc/puppetlabs/puppet/puppet.conf
+
+  - name : Copy the Puppet.confg file
+    action: template src=templates/puppet.conf.j2 dest=/etc/puppetlabs/puppet/puppet.conf
+
+  - name: Start Puppet Agent Service
+    shell: puppet agent -t

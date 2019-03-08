@@ -1,0 +1,6 @@
+---
+
+  - name: Deploy Puppet Agents
+    hosts: agents:newagents
+    roles:
+       - puppetagent
